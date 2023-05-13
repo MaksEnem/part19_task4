@@ -3,7 +3,7 @@
 
 int main() {
 
-	char buffer[10];
+	char buffer[8];
 	std::ifstream picture;
 
 	picture.open("file.png", std::ios::binary);
@@ -13,6 +13,21 @@ int main() {
 		std::cout << "File is open\n";
 		std::cout << std::endl;
 
+		picture.read(buffer, sizeof(buffer));
+
+		if ((buffer[0] == -119) && (buffer[1] == 'P') && (buffer[2] == 'N') && (buffer[3] == 'G')) {
+
+			std::cout << "This file is a PNG image" << std::endl;
+
+		}
+		else {
+
+			std::cout << "Unknown file type" << std::endl;
+
+		}
+
+		picture.close();
+
 	}
 	else {
 
@@ -20,23 +35,5 @@ int main() {
 		std::cout << "ERROR!!!\n";
 		std::cout << "File is not open\n";
 
-	}
-	
-	picture.read(buffer, sizeof(buffer));
-
-		for (int i = 0; i < picture.gcount(); ++i) {
-
-			std::cout << buffer[i];
-
-			if (buffer[i] == -119) {
-
-				std::cout << "Ok\n";
-
-			}
-
-		}
-
-	
-
-	picture.close();
+	}	
 }
